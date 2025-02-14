@@ -38,8 +38,12 @@
 !(get-brother Nejib)
 
 (= (get-uncle $x)
-
-    (get-brother (get-parent $x))
+(match &self(
+    ,(Parent $y $x)
+    
+)
+    $z
+)
 
 )
 
