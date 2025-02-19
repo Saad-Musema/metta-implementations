@@ -70,14 +70,77 @@
 ; ! (remove 2 (:: 1 (:: 2 (:: 5 (:: 3 ())))))
 
 
-(=(less-than $x) (if(< $x 0)($x) ()))
+(=(calls (:: $x $xs)) 
+(car-atom ($x))
+)
+!(calls (:: 1 (:: 2 ())))
+
+!(Remove Function Output)
+
+(=(remove $y (:: $x $xs)) ( (== (car-atom $x) 1) ))
+
+
+
+
+; !(remove 2 (:: 1(:: 2 ())))
+
+
+(=(less-than $x) (if(< $x 0) ($x) ()))
 
 ;Filtering a List
 (=(filter (:: $x $xs) $f) (
-    $f (:: $x $xs)
+    $f (car-atom $x)
 ))
 
-!(filter (:: 1(:: 2 ())) less-than)
+
+
+
+; !(filter (:: 1(:: 2 ())) less-than)
+
+
+;;Max -Value
+
+(=(max ()) 0)
+(=(max (:: $x $xs)) 
+(max $xs)
+)
+
+(= (first-element (:: $x $xs)) $x)
+(= (max-value $max ()) $max)
+(= (max-value $max (:: $x $xs))
+    (if (> $max $x)
+        (max-value $max $xs)
+        (max-value $x $xs)
+    )
+)
+! (max-value (first-element (:: 1 (:: 2 (:: 5 (:: 3 ()))))) (:: 1 (:: 2 (:: 5 (:: 3 ())))))
+
+
+;;Pop Function
+
+(=(pop (:: $x $xs)) $xs)
+
+!(pop (:: 1(:: 2 ())))
+
+;Reverse Function
+
+(= (reverse ()) ())
+(= (reverse (:: $x $xs))
+    (append (reverse $xs) $x))
+(= (append () $element) (:: $element ()))
+(= (append (:: $x $xs) $element)
+    (:: $x (append $xs $element)))
+
+!(reverse (:: 1 (:: 2 (:: 3 (:: 4 ())))))
+
+
+
+
+
+
+
+
+
 
 
 
