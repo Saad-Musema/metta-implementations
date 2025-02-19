@@ -23,12 +23,11 @@
     if(== $x $y) (True) (is-member $xs $y)
 )
 )
-
-
-
-!(is-member Cons 1 (Cons 2 (Cons 3 (Cons 4 (Nil)))) 5)
-
+!(Is-Member Implementation)
 !(is-member (:: 1(:: 2 ())) 3)
+
+; !(is-member Cons 1 (Cons 2 (Cons 3 (Cons 4 (Nil)))) 5)
+
 
 ;;Adds to end of list
 (= (append $y Nil) (Cons $y Nil))
@@ -49,11 +48,15 @@
 
 ; Function to compare two numbers
 (=(compare $x $y) (if(> $x $y) ($x) $y))
-
 !(compare 5 7)
 
-(=(compare-list (:: $x $xs)) (compare $x ))
+(= (max-val ()) ())
+(= (max-val (:: $x $xs)) 
+(if ())
+)
 
+
+(=(compare-list (:: $x $xs)) (compare $x ))
 
 
 ; Function to remove an Element -- Autogen
@@ -67,35 +70,56 @@
 )
 ))
 
-; ! (remove 2 (:: 1 (:: 2 (:: 5 (:: 3 ())))))
-
-
-(=(calls (:: $x $xs)) 
-(car-atom ($x))
-)
-!(calls (:: 1 (:: 2 ())))
-
 !(Remove Function Output)
-
-(=(remove $y (:: $x $xs)) ( (== (car-atom $x) 1) ))
-
+! (remove 2 (:: 1 (:: 2 (:: 5 (:: 3 ())))))
 
 
 
-; !(remove 2 (:: 1(:: 2 ())))
+
+; (=(calls (:: $x $xs)) 
+; (car-atom ($x))
+; )
+; !(calls (:: 1 (:: 2 ())))
 
 
-(=(less-than $x) (if(< $x 0) ($x) ()))
+
+; (=(remove $y (:: $x $xs)) ( (== (car-atom $x) 1) ))
+
+(= (double $x) (* $x 2))
+
+!(doubling output)
+!(double 5)
+
+;Mapping Function
+(=(map $func ()) ())
+; (=(map $func (:: $x $xs)) ( append( $func ($x)) map $func $xs)) 
+(=(map $func (:: $x $xs)) (:: ($func $x) (map $func $xs)))
+
+
+!(Map List Output)
+
+!(map double (:: 1 (:: 2 (:: 3 ()))))
+
+
+
+(=(less-than $x) (if(< $x 10) ($x) ()))
+
+!(Lesser Output)
+!(less-than 16)
+
+
 
 ;Filtering a List
-(=(filter (:: $x $xs) $f) (
-    $f (car-atom $x)
-))
+(=(filter $func ()) ())
+(=(filter $func (:: $x $xs)) 
+(($func $x) (filter $func $xs))
+)
 
+!(Filtering Output)
 
+!(filter less-than (:: 1(:: 22 ())))
 
-
-; !(filter (:: 1(:: 2 ())) less-than)
+!(End of Filtering)
 
 
 ;;Max -Value
@@ -138,7 +162,7 @@
 ;Fold R
 
 (=(foldr ()) 0)
-(=(foldr (:: $x $xs)) (+ $x (foldl $xs)))
+(=(foldr (:: $x $xs)) (+ $x (foldr $xs)))
 
 
 !(foldr (:: 1 (:: 2 (:: 3 (:: 4 ())))))
