@@ -112,8 +112,14 @@
 ;Filtering a List
 (=(filter $func ()) ())
 (=(filter $func (:: $x $xs)) 
-(($func $x) (filter $func $xs))
+(
+    if(== (get-type ($func $x)) Number) (Hello)
+     (Hey))
 )
+
+!(get-type 6)
+; :: $x (filter $func $xs)
+; filter $func $xs
 
 !(Filtering Output)
 
@@ -126,7 +132,7 @@
 
 (=(max ()) 0)
 (=(max (:: $x $xs)) 
-(max $xs)
+(if (> max $x))
 )
 
 (= (first-element (:: $x $xs)) $x)
@@ -137,7 +143,9 @@
         (max-value $x $xs)
     )
 )
-! (max-value (first-element (:: 1 (:: 2 (:: 5 (:: 3 ()))))) (:: 1 (:: 2 (:: 5 (:: 3 ())))))
+
+!(Maximum Value)
+! (max-value (:: 1 (:: 2 (:: 5 (:: 3 ())))))
 
 
 ;;Pop Function
