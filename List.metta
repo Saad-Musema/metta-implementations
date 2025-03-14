@@ -18,15 +18,31 @@
 
 
 ;Is-member function
-(= (is-member ()) False)
+(= (is-member ()) ())
 (= (is-member (:: $x $xs) $y) (
     if(== $x $y) (True) (is-member $xs $y)
 )
 )
+
+(: is_member (-> Number List Bool))
+(= (is_member $y Nil) False)
+(= (is_member $y (Cons $x $xs))
+    (if (== $y $x)
+        True
+    (is_member $y $xs))
+)
+
 !(Is-Member Implementation)
 !(is-member (:: 1(:: 2 ())) 3)
 
 ; !(is-member Cons 1 (Cons 2 (Cons 3 (Cons 4 (Nil)))) 5)
+
+; Mapping Function
+(: map (-> (-> Number Number) List List))
+(= (map $func Nil) Nil)
+(= (map $func (Cons $x $xs))
+    (Cons ($func $x) (map $func $xs))
+)
 
 
 ;;Adds to end of list
@@ -70,6 +86,12 @@
 )
 ))
 
+
+(= (remove2 $x $pattern)
+     ()
+
+)
+
 !(Remove Function Output)
 ! (remove 2 (:: 1 (:: 2 (:: 5 (:: 3 ())))))
 
@@ -102,7 +124,7 @@
 
 
 
-(=(less-than $x) (if(< $x 10) ($x) ()))
+(=(less-than $x) (if(< $x 10) ($x) (empty)))
 
 !(Lesser Output)
 !(less-than 16)
@@ -135,7 +157,7 @@
 (if (> max $x))
 )
 
-(= (first-element (:: $x $xs)) $x)
+
 (= (max-value $max ()) $max)
 (= (max-value $max (:: $x $xs))
     (if (> $max $x)
@@ -145,7 +167,19 @@
 )
 
 !(Maximum Value)
-! (max-value (:: 1 (:: 2 (:: 5 (:: 3 ())))))
+! (max-value 0 (:: 1 (:: 2 (:: 5 (:: 3 ())))))
+
+
+(= (min-value $min ()) $min)
+(= (min-value $min (:: $x $xs))
+    (if (< $min $x)
+        (min-value $min $xs)
+        (min-value $x $xs)
+    )
+)
+
+!(Minimum Value)
+! (min-value 30 (:: 1 (:: 2 (:: 5 (:: 3 ())))))
 
 
 ;;Pop Function
@@ -158,7 +192,9 @@
 
 (= (reverse ()) ())
 (= (reverse (:: $x $xs))
-    (append (reverse $xs) $x))
+    (append (reverse $xs) $x)) 
+
+
 (= (append () $element) (:: $element ()))
 (= (append (:: $x $xs) $element)
     (:: $x (append $xs $element)))
@@ -178,7 +214,14 @@
 
 
 
-
+(: filter (-> (-> Number Bool) List List))
+(= (filter $func Nil) Nil)
+(= (filter $func (Cons $x $xs))
+    (if ($func $x)
+        (Cons $x (filter $func $xs))
+        (filter $func $xs)
+    )
+)
 
 
 

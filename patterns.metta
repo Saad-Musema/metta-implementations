@@ -15,6 +15,8 @@
 (Parent Bob Pat)
 (Parent Pat Jim)
 
+(= (get-siblings $x) (match &self (, ())))
+
 (= (get-sister $x)
    (match &self
      (, (Parent $y $x)
@@ -23,17 +25,35 @@
      $z
    )
 )
+
+(= (get-sister $x)
+   (match &self
+     (, (Parent $y $x)
+        (Parent $y $z))
+     $z
+   )
+)
+!(Mercy Output)
 ! (get-sister Bob)
+!(ENd)
 
-
+; ( = (get-brother $x) (match &self (, (get-siblings $x))))
 (= (get-brother $x)
-(match &self(
+( let* (
+    ($siblings (get-siblings $x))
+)
+    $siblings
+)
+)
+!(new output)
+!(get-brother Nejib)
+!(ends)
+
+   match &self(
     ,(Parent $y $x)
      (Parent $y $z)
      (Male $z))
      $z
-)
-)
 
 !(get-brother Nejib)
 
